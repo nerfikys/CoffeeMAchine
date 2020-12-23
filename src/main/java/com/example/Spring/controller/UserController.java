@@ -1,8 +1,8 @@
-package com.example.sweater.controller;
+package com.example.Spring.controller;
 
-import com.example.sweater.domain.Role;
-import com.example.sweater.domain.User;
-import com.example.sweater.repos.UserRepo;
+import com.example.Spring.domain.Role;
+import com.example.Spring.domain.User;
+import com.example.Spring.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -37,13 +37,16 @@ public class UserController {
         return "userEdit";
     }
 
+
     @PostMapping
     public String userSave(
             @RequestParam String username,
+            @RequestParam String password,
             @RequestParam Map<String, String> form,
             @RequestParam("userId") User user
     ) {
         user.setUsername(username);
+        user.setPassword(password);
 
         Set<String> roles = Arrays.stream(Role.values())
                 .map(Role::name)

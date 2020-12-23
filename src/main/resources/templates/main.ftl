@@ -4,25 +4,30 @@
 <div class="form-row">
     <div class="form-group col-md-6">
         <form method="get" action="/main" class="form-inline">
-            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Поиск по тегу">
-            <button type="submit" class="btn btn-primary ml-2">Поиск</button>
+            <input type="text" name="filter" class="form-control" value="${filter?ifExists}" placeholder="Найти по тэгу">
+            <button type="submit" class="btn btn-primary ml-2">Найти</button>
         </form>
     </div>
 </div>
 
 <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-    Добавить новые данные
+    Добавить сообщение через RabbitMQ
 </a>
 <div class="collapse" id="collapseExample">
     <div class="form-group mt-3">
         <form method="post" enctype="multipart/form-data">
             <div class="form-group">
-                <input type="text" class="form-control" name="text" placeholder="Введите данные" />
+                <input type="text" class="form-control" name="text" placeholder="Введите сообщение" />
             </div>
             <div class="form-group">
-                <input type="text" class="form-control" name="tag" placeholder="Введите тег">
+                <input type="text" class="form-control" name="tag" placeholder="Тэг">
             </div>
-
+            <div class="form-group">
+                <div class="custom-file">
+                    <input type="file" name="file" id="customFile">
+                    <label class="custom-file-label" for="customFile">Прикрепить файл</label>
+                </div>
+            </div>
             <input type="hidden" name="_csrf" value="${_csrf.token}" />
             <div class="form-group">
                 <button type="submit" class="btn btn-primary">Добавить</button>

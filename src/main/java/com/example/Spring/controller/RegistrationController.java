@@ -1,19 +1,15 @@
-package com.example.sweater.controller;
+package com.example.Spring.controller;
 
-import com.example.sweater.domain.Role;
-import com.example.sweater.domain.User;
-import com.example.sweater.repos.UserRepo;
+import com.example.Spring.domain.Role;
+import com.example.Spring.domain.User;
+import com.example.Spring.repos.UserRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
 
 import java.util.Collections;
 import java.util.Map;
-import java.util.Set;
 
 @Controller
 public class RegistrationController {
@@ -30,7 +26,7 @@ public class RegistrationController {
         User userFromDb = userRepo.findByUsername(user.getUsername());
 
         if (userFromDb != null) {
-            model.put("message", "User exists!");
+            model.put("message", "Такой миньён уже есть!");
             return "registration";
         }
 
