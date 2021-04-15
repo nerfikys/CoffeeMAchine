@@ -5,11 +5,25 @@
     <meta charset="UTF-8">
     <title>Spring boot web</title>
     <link rel="stylesheet" href="/static/style.css">
-
+    <link rel='manifest' href='/static/manifest.webmanifest'>
+    <link rel="apple-touch-icon" href="/static/ico/192.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="theme-color" content="#686bd2"/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.18.3/dist/bootstrap-table.min.css">
+
+    <script>
+    // Check that service workers are supported
+    if ('serviceWorker' in navigator) {
+      // Use the window load event to keep the page load performant
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/static/service-worker.js');
+      });
+    }
+    </script>
+
 </head>
 <body>
 <#include "navbar.ftl">
