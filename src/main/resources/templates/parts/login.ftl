@@ -1,42 +1,33 @@
 <#macro login path isRegisterForm>
-<form action="${path}" method="post">
-
+<form class="form-signin" action="${path}" method="post">
 <div class="container">
-  <div class="row justify-content-md-center">
-    <div class="col col-lg-2">
-    </div>
-    <div class="col-md-auto">
-      <input type="text" name="username" class="form-control" placeholder="Логин" required=""/>
-    </div>
-    <div class="col col-lg-2">
-    </div>
-  </div>
-<br>
-  <div class="container">
     <div class="row justify-content-md-center">
-      <div class="col col-lg-2">
+      <div class="col-sm">
       </div>
-      <div class="col-md-auto">
-        <input type="password" name="password" class="form-control" placeholder="Пароль" required=""/>
-      </div>
-      <div class="col col-lg-2">
+      <div class="col-sm">
+        <div class="form-group">
+          <input type="text" name="username" class="form-control" placeholder="Логин" required=""/>
+        </div>
+        <div class="form-group">
+          <input type="password" name="password" class="form-control" placeholder="Пароль" required=""/>
+        </div>
+        <input type="hidden" name="_csrf" value="${_csrf.token}" />
+        <button class="btn btn-primary btn-lg btn-block" type="submit"><#if isRegisterForm>Регистрация<#else>Войти</#if></button>
+          <div class="row justify-content-md-center">
+              <div class="mx-auto">
+                <#if !isRegisterForm><a href="/registration">Зарегистрироваться</a></#if>
+              </div>
+          </div>
+        </div>
+      <div class="col-sm">
       </div>
     </div>
-<br>
-<div class="row justify-content-md-center">
-    <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    <button class="btn btn-primary" type="submit"><#if isRegisterForm>Create<#else>Войти</#if></button>
 </div>
-<div class="row justify-content-md-center">
-     <#if !isRegisterForm><a href="/registration">Зарегистрироваться</a></#if>
-</div>
-
 </form>
 </#macro>
-
 <#macro logout>
 <form action="/logout" method="post">
-    <input type="hidden" name="_csrf" value="${_csrf.token}" />
-    <button class="btn btn-primary" type="submit">Выход</button>
+<input type="hidden" name="_csrf" value="${_csrf.token}" />
+<button class="btn btn-primary btn-lg btn-block" type="submit">Выход</button>
 </form>
 </#macro>

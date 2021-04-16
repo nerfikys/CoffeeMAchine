@@ -2,7 +2,6 @@ package com.example.Spring.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 
 @Entity
 public class Distance {
@@ -10,7 +9,7 @@ public class Distance {
     @GeneratedValue(strategy=GenerationType.AUTO)
     private Integer id;
     private String name;
-    private LocalDateTime data;
+    private LocalDate data;
     private Double value;
 
     @ManyToOne(fetch = FetchType.EAGER)
@@ -20,13 +19,13 @@ public class Distance {
     public Distance() {
     }
 
-    public Distance(String name, LocalDateTime data, Double value) {
+    public Distance(String name, LocalDate data, Double value) {
         this.name = name;
         this.data = data;
         this.value = value;
     }
 
-    public Distance(String name, LocalDateTime data, Double value, User author) {
+    public Distance(String name, LocalDate data, Double value, User author) {
         this.name = name;
         this.data = data;
         this.value = value;
@@ -61,11 +60,11 @@ public class Distance {
         this.name = name;
     }
 
-    public LocalDateTime getData() {
+    public LocalDate getData() {
         return data;
     }
 
-    public void setData(LocalDateTime data) {
+    public void setData(LocalDate data) {
         this.data = data;
     }
 

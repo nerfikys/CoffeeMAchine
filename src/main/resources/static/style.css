@@ -22,3 +22,13 @@ table.table-1 th, table.table-1 td {
 table.table-1 th{
 	font-weight: bold;
 }
+
+label {
+    display: block;
+    font: 1rem 'Fira Sans', sans-serif;
+}
+
+input,
+label {
+    margin: .4rem 0;
+}
