@@ -1,7 +1,7 @@
 {
   "name": "Health",
   "short_name": "Health",
-  "start_url": "https://pwa-health.herokuapp.com/",
+  "start_url": "https://pwa-health.herokuapp.com",
   "display": "fullscreen",
   "orientation": "any",
   "lang": "ru",
