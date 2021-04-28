@@ -6,7 +6,7 @@
     <title>Health monitor</title>
     <link rel="stylesheet" href="/static/style.css">
     <link rel='manifest' href='/static/manifest.webmanifest'>
-    <link rel="apple-touchформа печати spring boot-icon" href="/static/ico/192.png">
+    <link rel="apple-touch-icon" href="/static/ico/192.png">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#686bd2"/>
 
