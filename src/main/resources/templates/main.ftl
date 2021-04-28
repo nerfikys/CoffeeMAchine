@@ -6,12 +6,12 @@
   <div class="form-row">
       <div class="form-group col-md-6">
       <form method="get" action="/main" class="form-inline">
-      <input type="date" id="start" name="data-start">
-      <input type="date" id="start" name="data-finish">
+      <input type="date" id="start" name="dataFrom" value = "${dataFrom?ifExists}">
+      <input type="date" id="end" name="dataTo" value="${dataTo?ifExists}">
       <button type="submit" class="btn btn-primary ml-2">Найти</button>
       </form>
     </div>
-  </div>
+  </div
 <div class="form-row">
     <div class="form-group col-md-6">
         <form method="get" action="/main" class="form-inline">

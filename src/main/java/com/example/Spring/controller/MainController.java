@@ -19,8 +19,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.SAXException;
+
+import javax.swing.text.DateFormatter;
 import javax.xml.parsers.ParserConfigurationException;
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Map;
 
@@ -44,25 +49,37 @@ public class MainController {
     }
 
     @GetMapping("/main")
-    public String main(@RequestParam(required = false, defaultValue = "") String filter, Model model) {
-        Iterable<Pulse> pulses = pulseRepo.findAll();
-        Iterable<Step> steps = stepRepo.findAll();
-        Iterable<Distance> distances = distanceRepo.findAll();
-        Iterable<Weight> weights = weightRepo.findAll();
+    public String main(@RequestParam(required = false, defaultValue = "") String filter, @RequestParam(required = false, defaultValue = "")String dataFrom, @RequestParam(required = false, defaultValue = "")String dataTo, @AuthenticationPrincipal User user, Model model) {
+        Iterable<Pulse> pulses;
+        Iterable<Step> steps;
+        Iterable<Distance> distances;
+        Iterable<Weight> weights;
 
         if (filter != null && !filter.isEmpty()) {
-            pulses = pulseRepo.findByName(filter);
-            steps = stepRepo.findByName(filter);
-            distances = distanceRepo.findByName(filter);
-            weights = weightRepo.findByName(filter);
+            pulses = pulseRepo.findAllByName(filter);
+            steps = stepRepo.findAllByName(filter);
+            distances = distanceRepo.findAllByName(filter);
+            weights = weightRepo.findAllByName(filter);
 
         } else {
-            pulses = pulseRepo.findAll();
+            pulses = pulseRepo.findByAuthor(user);
             steps = stepRepo.findAll();
             distances = distanceRepo.findAll();
             weights = weightRepo.findAll();
         }
 
+        if (((dataFrom != null)&&(!dataFrom.equals("")))&&((dataTo != null)&&(!dataTo.equals(""))))
+        {
+            LocalDateTime dataFromForm = LocalDateTime.parse(dataFrom + " 00:00:00", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            LocalDateTime dataToForm = LocalDateTime.parse(dataTo + " 23:59:59", DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+            LocalDate dateFromForm = LocalDate.parse(dataFrom, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            LocalDate dateToForm = LocalDate.parse(dataTo, DateTimeFormatter.ofPattern("yyyy-MM-dd"));
+            pulses = pulseRepo.findByDataBetween(dataFromForm,dataToForm);
+            weights = weightRepo.findByDataBetween(dataFromForm,dataToForm);
+            steps = stepRepo.findByDataBetween(dateFromForm,dateToForm);
+            distances = distanceRepo.findByDataBetween(dateFromForm,dateToForm);
+
+        }
         model.addAttribute("pulses", pulses);
         model.addAttribute("steps", steps);
         model.addAttribute("distances", distances);
@@ -82,6 +99,7 @@ public class MainController {
         ArrayList<Step> steps = new ArrayList<>();
         ArrayList<Distance> distances = new ArrayList<>();
         ArrayList<Weight> weights = new ArrayList<>();
+
         try {
             pulses = PulseXML.XMLReader(file);
             steps = StepXML.XMLReader(file);
@@ -107,14 +125,12 @@ public class MainController {
         }
         for (Step step : steps)
         {
-            System.out.println("PUY");
             step.setAuthor(user);
             stepRepo.save(step);
         }
 
         for (Distance distance : distances)
         {
-            System.out.println("YUP");
             distance.setAuthor(user);
             distanceRepo.save(distance);
         }
