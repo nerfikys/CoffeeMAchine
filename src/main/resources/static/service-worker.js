@@ -4,7 +4,8 @@ var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
   '/',
   '/styles/main.css',
-  '/script/main.js'
+  '/script/main.js',
+  'https://health-pwa.herokuapp.com/'
 ];
 
 self.addEventListener('install', function(event) {
@@ -17,6 +18,16 @@ self.addEventListener('install', function(event) {
       })
   );
 });
+
+withPWA({
+        pwa: {
+            dest: 'public',
+            publicExcludes: [
+                '!robots.txt',
+                '!sitemap.xml.gz',
+            ],
+        },
+    }),
 
 
 
