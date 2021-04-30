@@ -61,9 +61,9 @@ public class MainController {
 
         } else {
             pulses = pulseRepo.findByAuthor(user);
-            steps = stepRepo.findAll();
-            distances = distanceRepo.findAll();
-            weights = weightRepo.findAll();
+            steps = stepRepo.findByAuthor(user);
+            distances = distanceRepo.findByAuthor(user);
+            weights = weightRepo.findByAuthor(user);
         }
 
         if (((dataFrom != null)&&(!dataFrom.equals("")))&&((dataTo != null)&&(!dataTo.equals(""))))
@@ -78,6 +78,8 @@ public class MainController {
             distances = distanceRepo.findByDataBetween(dateFromForm,dateToForm);
 
         }
+        model.addAttribute("dataFrom",dataFrom);
+        model.addAttribute("dataTo",dataTo);
         model.addAttribute("pulses", pulses);
         model.addAttribute("steps", steps);
         model.addAttribute("distances", distances);

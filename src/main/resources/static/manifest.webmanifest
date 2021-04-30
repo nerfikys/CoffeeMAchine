@@ -1,7 +1,7 @@
 {
   "name": "Health",
   "short_name": "Health",
-  "start_url": "",
+  "start_url": "/",
   "display": "fullscreen",
   "orientation": "any",
   "lang": "ru",

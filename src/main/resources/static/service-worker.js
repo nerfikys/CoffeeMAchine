@@ -3,9 +3,10 @@ console.log('Hello from service-worker.js');
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
   '/',
-  '/styles/main.css',
-  '/script/main.js',
-  'https://health-pwa.herokuapp.com/'
+  'http://localhost:8088/',
+  '/static/service-worker.js',
+  '/static/style.css',
+  '/main'
 ];
 
 self.addEventListener('install', function(event) {
@@ -19,24 +20,10 @@ self.addEventListener('install', function(event) {
   );
 });
 
-withPWA({
-        pwa: {
-            dest: 'public',
-            publicExcludes: [
-                '!robots.txt',
-                '!sitemap.xml.gz',
-            ],
-        },
-    }),
-
-
-
-
-importScripts('https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js');
-
-workbox.routing.registerRoute(
-  new RegExp('\.png$'),
-  workbox.strategies.cacheFirst({
-    cacheName: 'images-cache',
-  })
-);
+self.addEventListener('fetch', event => {
+  // Respond with a cached resource, or else fetch from network.
+  event.respondWith((async () => {
+    const response = await caches.match(event.request);
+    return response || fetch(event.request);
+  })());
+});
