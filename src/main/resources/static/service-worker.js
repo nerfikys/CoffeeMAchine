@@ -2,11 +2,12 @@ console.log('Hello from service-worker.js');
 
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-    'https://health-pwa.herokuapp.com/',
-    'https://health-pwa.herokuapp.com/main',
-    'https://health-pwa.herokuapp.com/login',
-    'https://health-pwa.herokuapp.com/registration',
-    'https://health-pwa.herokuapp.com/user'
+    '',
+    '/',
+    '/main',
+    '/login',
+    '/registration',
+    '/user'
 ];
 
 self.addEventListener('install', function(event) {
