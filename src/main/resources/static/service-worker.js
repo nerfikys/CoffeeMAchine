@@ -2,7 +2,7 @@ console.log('Hello from service-worker.js');
 
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-    'https://health-pwa.herokuapp.com/',
+    '/',
     '/main',
     '/login',
     '/registration',
