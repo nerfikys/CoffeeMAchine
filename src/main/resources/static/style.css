@@ -46,10 +46,4 @@ td,
 th {
     padding: 0 5px;
     border: 1px solid black;
-
-}
-.add-button {
-  position: absolute;
-  top: 100px;
-  left: 100px;
 }
