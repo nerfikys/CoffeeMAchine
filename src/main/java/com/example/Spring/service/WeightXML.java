@@ -1,5 +1,6 @@
 package com.example.Spring.service;
 
+import com.example.Spring.domain.Pulse;
 import com.example.Spring.domain.Weight;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
@@ -33,10 +34,14 @@ public class WeightXML {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {
                 if (attributes.getValue("type").equals("HKQuantityTypeIdentifierBodyMass")) {
-                    String name = attributes.getValue("sourceName");
+                    String name = attributes.getValue("sourceName").replaceAll("\\s+", "");
                     LocalDateTime CD = LocalDateTime.parse(attributes.getValue("creationDate").substring(0, 19), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     String value = attributes.getValue("value");
-                    weights.add(new Weight(name, CD, value));
+                    Weight pul = new Weight(name, CD, value);
+                    if (!weights.contains(pul))
+                    {
+                        weights.add(pul);
+                    }
                 }
             }
         }

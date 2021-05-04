@@ -1,6 +1,7 @@
 package com.example.Spring.service;
 
 import com.example.Spring.domain.Distance;
+import com.example.Spring.domain.Pulse;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -34,14 +35,13 @@ public class DistanceXML {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {
                 if (attributes.getValue("type").equals("HKQuantityTypeIdentifierDistanceWalkingRunning")) {
-                    String name = attributes.getValue("sourceName");
+                    String name = attributes.getValue("sourceName").replaceAll("\\s+", "");
                     LocalDate CD = LocalDate.parse(attributes.getValue("creationDate").substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     Double value = Double.parseDouble(attributes.getValue("value"));
                     if (distances.isEmpty()) {
                         distances.add(new Distance(name, CD, value));
 
                     } else {
-                        System.out.println(value);
                         boolean flag = true;
                         for (int i = distances.size() - 1; (i > distances.size() - 10) && (i > 0); i--) {
 
@@ -52,7 +52,11 @@ public class DistanceXML {
                             }
                         }
                         if (flag) {
-                            distances.add(new Distance(name, CD, value));
+                            Distance pul = new Distance(name, CD, value);
+                            if (!distances.contains(pul))
+                            {
+                                distances.add(pul);
+                            }
                         }
                     }
                 }

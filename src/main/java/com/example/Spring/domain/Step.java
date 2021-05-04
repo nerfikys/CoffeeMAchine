@@ -2,6 +2,7 @@ package com.example.Spring.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Step {
@@ -74,5 +75,22 @@ public class Step {
 
     public void setValue(Long value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Step step = (Step) o;
+        return Objects.equals(id, step.id) &&
+                Objects.equals(name, step.name) &&
+                Objects.equals(data, step.data) &&
+                Objects.equals(value, step.value) &&
+                Objects.equals(author, step.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, data, value, author);
     }
 }

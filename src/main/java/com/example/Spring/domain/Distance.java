@@ -2,6 +2,7 @@ package com.example.Spring.domain;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.Objects;
 
 @Entity
 public class Distance {
@@ -74,5 +75,22 @@ public class Distance {
 
     public void setValue(Double value) {
         this.value = value;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Distance distance = (Distance) o;
+        return Objects.equals(id, distance.id) &&
+                Objects.equals(name, distance.name) &&
+                Objects.equals(data, distance.data) &&
+                Objects.equals(value, distance.value) &&
+                Objects.equals(author, distance.author);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, data, value, author);
     }
 }

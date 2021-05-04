@@ -11,5 +11,4 @@ public interface PulseRepo extends CrudRepository<Pulse, Long> {
     List<Pulse> findByDataBetween(LocalDateTime dataFrom, LocalDateTime dataTo);
     List<Pulse> findAllByName(String name);
 
-
 }

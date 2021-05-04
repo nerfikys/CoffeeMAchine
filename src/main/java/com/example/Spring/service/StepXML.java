@@ -1,5 +1,6 @@
 package com.example.Spring.service;
 
+import com.example.Spring.domain.Pulse;
 import com.example.Spring.domain.Step;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
@@ -34,7 +35,7 @@ public class StepXML {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {
                 if (attributes.getValue("type").equals("HKQuantityTypeIdentifierStepCount")) {
-                    String name = attributes.getValue("sourceName");
+                    String name = attributes.getValue("sourceName").replaceAll("\\s+", "");
                     LocalDate CD = LocalDate.parse(attributes.getValue("creationDate").substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     Long value = Long.parseLong(attributes.getValue("value"));
                     if (steps.isEmpty())
@@ -44,7 +45,7 @@ public class StepXML {
                     }
                     else
                     {
-                        System.out.println(value);
+
                          boolean flag=true;
                          for (int i = steps.size()-1;(i>steps.size()-10)&&(i>0);i--)
                          {
@@ -58,9 +59,12 @@ public class StepXML {
                         }
                         if (flag)
                         {
-                            steps.add(new Step(name, CD, value));
+                            Step pul = new Step(name, CD, value);
+                            if (!steps.contains(pul))
+                            {
+                                steps.add(pul);
+                            }
                         }
-
                     }
                 }
             }

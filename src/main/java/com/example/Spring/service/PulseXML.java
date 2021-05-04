@@ -21,12 +21,12 @@ public class PulseXML {
         if (file == null) {
             return null;
         }
-            SAXParserFactory factory = SAXParserFactory.newInstance();
-            SAXParser parser = factory.newSAXParser();
+        SAXParserFactory factory = SAXParserFactory.newInstance();
+        SAXParser parser = factory.newSAXParser();
 
-            XMLHandler handler = new XMLHandler();
-            parser.parse(file.getInputStream(), handler);
-            return pulses;
+        XMLHandler handler = new XMLHandler();
+        parser.parse(file.getInputStream(), handler);
+        return pulses;
     }
 
     private static class XMLHandler extends DefaultHandler {
@@ -34,10 +34,14 @@ public class PulseXML {
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {
                 if (attributes.getValue("type").equals("HKQuantityTypeIdentifierHeartRateVariabilitySDNN")) {
-                    String name = attributes.getValue("sourceName");
+                    String name = attributes.getValue("sourceName").replaceAll("\\s+", "");
                     LocalDateTime CD = LocalDateTime.parse(attributes.getValue("creationDate").substring(0, 19), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
                     String value = attributes.getValue("value");
-                    pulses.add(new Pulse(name, CD, value));
+                    Pulse pul = new Pulse(name, CD, value);
+                    if (!pulses.contains(pul))
+                    {
+                        pulses.add(pul);
+                    }
                 }
             }
         }

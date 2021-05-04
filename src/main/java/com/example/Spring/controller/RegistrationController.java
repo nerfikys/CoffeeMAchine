@@ -31,7 +31,14 @@ public class RegistrationController {
         }
 
         user.setActive(true);
-        user.setRoles(Collections.singleton(Role.USER));
+        if (userRepo.findAll().isEmpty())
+        {
+            user.setRoles(Collections.singleton(Role.ADMIN));
+        }
+        else
+            {
+                user.setRoles(Collections.singleton(Role.USER));
+            }
         userRepo.save(user);
 
         return "redirect:/login";
