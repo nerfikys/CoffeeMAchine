@@ -1,6 +1,7 @@
 package com.example.Spring.service;
 
 import com.example.Spring.domain.Pulse;
+import com.example.Spring.domain.User;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -15,21 +16,20 @@ import java.util.ArrayList;
 
 
 public class PulseXML {
-    private static ArrayList<Pulse> pulses = new ArrayList<>();
+    private  ArrayList<Pulse> pulses = new ArrayList<>();
 
-    public static ArrayList<Pulse> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
+    public  ArrayList<Pulse> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
         if (file == null) {
             return null;
         }
         SAXParserFactory factory = SAXParserFactory.newInstance();
         SAXParser parser = factory.newSAXParser();
-
         XMLHandler handler = new XMLHandler();
         parser.parse(file.getInputStream(), handler);
         return pulses;
     }
 
-    private static class XMLHandler extends DefaultHandler {
+    private class XMLHandler extends DefaultHandler {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {

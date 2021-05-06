@@ -1,6 +1,6 @@
 <#macro page>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" manifest="/static/example.appcache">
 <head>
     <meta charset="UTF-8">
     <title>Health monitor</title>

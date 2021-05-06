@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 
 public class StepXML {
-    private static ArrayList<Step> steps = new ArrayList<>();
+    private ArrayList<Step> steps = new ArrayList<>();
 
-    public static ArrayList<Step> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
+    public ArrayList<Step> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
         if (file == null) {
             return null;
         }
@@ -30,7 +30,7 @@ public class StepXML {
             return steps;
     }
 
-    private static class XMLHandler extends DefaultHandler {
+    private class XMLHandler extends DefaultHandler {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {

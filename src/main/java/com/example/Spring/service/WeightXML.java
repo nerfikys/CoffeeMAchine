@@ -15,9 +15,9 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class WeightXML {
-    private static ArrayList<Weight> weights = new ArrayList<>();
+    private ArrayList<Weight> weights = new ArrayList<>();
 
-    public static ArrayList<Weight> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
+    public ArrayList<Weight> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
         if (file == null) {
             return null;
         }
@@ -29,7 +29,7 @@ public class WeightXML {
             return weights;
     }
 
-    private static class XMLHandler extends DefaultHandler {
+    private class XMLHandler extends DefaultHandler {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {

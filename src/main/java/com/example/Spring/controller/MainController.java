@@ -10,7 +10,6 @@ import com.example.Spring.service.PulseXML;
 import com.example.Spring.service.StepXML;
 import com.example.Spring.service.WeightXML;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,6 +29,7 @@ import java.util.Map;
 
 @Controller
 public class MainController {
+    private static boolean ZANAYTO = false;
     @Autowired
     private PulseRepo pulseRepo;
     @Autowired
@@ -38,9 +38,6 @@ public class MainController {
     private DistanceRepo distanceRepo;
     @Autowired
     private WeightRepo weightRepo;
-
-    @Value("${upload.path}")
-    private String uploadPath;
 
     @GetMapping("/")
     public String greeting(Map<String, Object> model) {
@@ -64,10 +61,10 @@ public class MainController {
         List<Weight> weights = new ArrayList<>();
 
 
-        Iterable<Pulse> pulses0;
-        Iterable<Step> steps0;
-        Iterable<Distance> distances0;
-        Iterable<Weight> weights0;
+        Iterable<Pulse> pulses0 = new ArrayList<>();
+        Iterable<Step> steps0= new ArrayList<>();
+        Iterable<Distance> distances0= new ArrayList<>();
+        Iterable<Weight> weights0= new ArrayList<>();
 
         if (((dataFrom != null)&&(!dataFrom.equals("")))&&((dataTo != null)&&(!dataTo.equals(""))))
         {
@@ -237,6 +234,7 @@ public class MainController {
         model.addAttribute("steps", steps);
         model.addAttribute("distances", distances);
         model.addAttribute("weights", weights);
+        model.addAttribute("ZANAYTO", ZANAYTO);
 
         return "main";
     }
@@ -247,22 +245,26 @@ public class MainController {
             @RequestParam Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
+        ZANAYTO= true;
         ArrayList<Pulse> pulses = new ArrayList<>();
         ArrayList<Step> steps = new ArrayList<>();
         ArrayList<Distance> distances = new ArrayList<>();
         ArrayList<Weight> weights = new ArrayList<>();
 
         try {
-            pulses = PulseXML.XMLReader(file);
-            steps = StepXML.XMLReader(file);
-            distances = DistanceXML.XMLReader(file);
-            weights = WeightXML.XMLReader(file);
+            PulseXML pulseXML = new PulseXML();
+            pulses = pulseXML.XMLReader(file);
+            StepXML stepXML= new StepXML();
+            steps = stepXML.XMLReader(file);
+            DistanceXML distanceXML = new DistanceXML();
+            distances = distanceXML.XMLReader(file);
+            WeightXML weightXML = new WeightXML();
+            weights = weightXML.XMLReader(file);
         } catch (ParserConfigurationException e) {
             e.printStackTrace();
         } catch (SAXException e) {
             e.printStackTrace();
         }
-
         Iterable<Pulse> pulses0 = pulseRepo.findByAuthor(user);
         for (Pulse pulse : pulses)
         {
@@ -311,7 +313,6 @@ public class MainController {
                 stepRepo.save(step);
             }
         }
-
         Iterable<Distance> distances0 = distanceRepo.findByAuthor(user);
         for (Distance distance : distances) {
             boolean flag = true;
@@ -327,16 +328,16 @@ public class MainController {
                 distanceRepo.save(distance);
             }
         }
-
+        ZANAYTO = false;
         Iterable<Pulse> pulses1 = pulseRepo.findByAuthor(user);
         Iterable<Step> steps1 = stepRepo.findByAuthor(user);
         Iterable<Distance> distances1 = distanceRepo.findByAuthor(user);
         Iterable<Weight> weights1 = weightRepo.findByAuthor(user);
-
         model.put("pulses", pulses1);
         model.put("steps", steps1);
         model.put("distances", distances1);
         model.put("weights", weights1);
+        model.put("ZANAYTO", ZANAYTO);
 
         return "/";
     }

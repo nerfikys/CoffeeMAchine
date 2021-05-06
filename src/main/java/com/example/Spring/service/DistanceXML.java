@@ -2,6 +2,7 @@ package com.example.Spring.service;
 
 import com.example.Spring.domain.Distance;
 import com.example.Spring.domain.Pulse;
+import com.example.Spring.domain.User;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
@@ -16,9 +17,9 @@ import java.util.ArrayList;
 
 
 public class DistanceXML {
-    private static ArrayList<Distance> distances = new ArrayList<>();
+    private ArrayList<Distance> distances = new ArrayList<>();
 
-    public static ArrayList<Distance> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
+    public ArrayList<Distance> XMLReader(MultipartFile file) throws ParserConfigurationException, SAXException, IOException {
         if (file == null) {
             return null;
         }
@@ -30,7 +31,7 @@ public class DistanceXML {
         return distances;
     }
 
-    private static class XMLHandler extends DefaultHandler {
+    private class XMLHandler  extends DefaultHandler {
         @Override
         public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
             if (qName.equals("Record")) {

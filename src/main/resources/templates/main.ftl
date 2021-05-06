@@ -110,7 +110,14 @@
                 </div>
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <div class="form-group">
+                <#if !ZANAYTO>
                   <button type="submit" class="btn btn-primary btn-lg btn-block">Добавить</button>
+                </#if>
+                <#if ZANAYTO>
+                <p>
+                Кнопка добавить появится когда очередь освободиться, просто подождите и обновите страничку
+                </p>
+                </#if>
                 </div>
               </form>
             </div>
