@@ -47,3 +47,9 @@ th {
     padding: 0 5px;
     border: 1px solid black;
 }
+
+@media print {
+    #printPageButton {
+        display: none;
+    }
+}

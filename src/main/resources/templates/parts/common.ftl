@@ -1,15 +1,18 @@
 <#macro page>
 <!DOCTYPE html>
-<html lang="en" manifest="/static/example.appcache">
+<html lang="ru">
 <head>
     <meta charset="UTF-8">
     <title>Health monitor</title>
-    <link rel="stylesheet" href="/static/style.css">
-    <link rel='manifest' href='/static/manifest.webmanifest'>
-    <link rel="apple-touch-icon" href="/static/ico/ios.png">
+    <link rel="stylesheet" href="../static/style.css">
+    <link rel='manifest' href='../static/manifest.webmanifest'>
+    <link rel="apple-touch-icon" href="../static/ico/ios.png">
     
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="theme-color" content="#686bd2"/>
+
+    <meta content='yes' name='apple-mobile-web-app-capable'/>
+    <meta content='yes' name='mobile-web-app-capable'/>
 
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css" integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
@@ -23,7 +26,7 @@
     if ('serviceWorker' in navigator) {
       // Use the window load event to keep the page load performant
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('/static/service-worker.js');
+        navigator.serviceWorker.register('../static/service-worker.js');
       });
     }
     </script>

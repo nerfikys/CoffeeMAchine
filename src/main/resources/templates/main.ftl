@@ -134,7 +134,7 @@
   <div class="card">
     <div class="card-header" id="headingOne">
       <h2 class="mb-0">
-        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
+        <button class="btn btn-link btn-block text-left" type="button" data-toggle="collapse" data-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne" id="printPageButton">
           Данные пульса
         </button>
       </h2>
@@ -146,7 +146,7 @@
     <div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-parent="#accordionExample">
       <div class="card-body">
         <button type="button" class="btn btn-outline-primary" onclick="isPulse()">График пульса</button><br>
-            <div id="pulse_chart"></div>
+            <pre class="chroma"><div id="pulse_chart"></div></pre>
             <h3>Таблица значений</h3>
             <div class="table-wrap">
                 <table class="table-1">
@@ -288,8 +288,8 @@
 </div>
 </form>
 
-<script type="text/javascript">function isPulse(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Пульс'],<#list pulses?sortBy("data") as pulse><#if pulse.authorName==name><#if spisok2P?seqContains(pulse.name)>['${pulse.data}',${pulse.value}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}};var chart=new google.charts.Line(document.getElementById('pulse_chart'));chart.draw(data, google.charts.Line.convertOptions(options))}}</script>
-<script type="text/javascript">function isStep(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Шаги'],<#list steps?sortBy("data") as step><#if step.authorName==name><#if spisok2S?seqContains(step.name)>['${step.data}',${step.value?string.computer}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}};var chart=new google.charts.Line(document.getElementById('step_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
-<script type="text/javascript">function isDistance(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Дистанция'],<#list distances?sortBy("data") as distance><#if distance.authorName==name><#if spisok2D?seqContains(distance.name)>['${distance.data}',${distance.value?string.computer}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}};var chart=new google.charts.Line(document.getElementById('distance_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
-<script type="text/javascript">function isWeight(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Вес'],<#list weights?sortBy("data") as weight><#if weight.authorName==name><#if spisok2W?seqContains(weight.name)>['${weight.data}',${weight.value}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}};var chart=new google.charts.Line(document.getElementById('weight_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
+<script type="text/javascript">function isPulse(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Пульс'],<#list pulses?sortBy("data") as pulse><#if pulse.authorName==name><#if spisok2P?seqContains(pulse.name)>['${pulse.data}',${pulse.value}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}, width: 1000, height: 500};var chart=new google.charts.Line(document.getElementById('pulse_chart'));chart.draw(data, google.charts.Line.convertOptions(options))}}</script>
+<script type="text/javascript">function isStep(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Шаги'],<#list steps?sortBy("data") as step><#if step.authorName==name><#if spisok2S?seqContains(step.name)>['${step.data}',${step.value?string.computer}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}, width: 1000, height: 500};var chart=new google.charts.Line(document.getElementById('step_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
+<script type="text/javascript">function isDistance(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Дистанция'],<#list distances?sortBy("data") as distance><#if distance.authorName==name><#if spisok2D?seqContains(distance.name)>['${distance.data}',${distance.value?string.computer}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}, width: 1000, height: 500};var chart=new google.charts.Line(document.getElementById('distance_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
+<script type="text/javascript">function isWeight(){google.charts.load('current', {'packages':['line']});google.charts.setOnLoadCallback(drawChart);function drawChart(){var data=google.visualization.arrayToDataTable([['Дата','Вес'],<#list weights?sortBy("data") as weight><#if weight.authorName==name><#if spisok2W?seqContains(weight.name)>['${weight.data}',${weight.value}],</#if></#if></#list>]);var options={curveType:'function',legend:{position:'bottom'}, width: 1000, height: 500};var chart=new google.charts.Line(document.getElementById('weight_chart'));chart.draw(data,google.charts.Line.convertOptions(options))}}</script>
 </@c.page>

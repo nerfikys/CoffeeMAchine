@@ -2,11 +2,7 @@ console.log('Hello from service-worker.js');
 
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-    'http://localhost:8088/',
-    'http://localhost:8088/main',
-    'http://localhost:8088/login',
-    'http://localhost:8088/registration',
-    'http://localhost:8088/user'
+    'index.html'
 ];
 
 self.addEventListener('install', function(event) {

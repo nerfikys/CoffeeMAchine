@@ -1,14 +1,15 @@
 {
     "name": "Health",
     "short_name": "Health",
-    "start_url": "/static/index.html",
+    "start_url": "index.html",
+    "display_override": ["window-control-overlay", "minimal-ui"],
     "display": "fullscreen",
     "orientation": "any",
     "lang": "ru",
-    "scope": "Health",
+    "scope": "./",
     "background_color": "#686bd2",
     "theme_color": "#686bd2",
-    "prefer_related_applications": "true",
+    "prefer_related_applications": false,
     "icons": [{
             "src": "ico/512.png",
             "sizes": "512x512",
