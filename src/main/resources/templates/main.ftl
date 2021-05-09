@@ -186,7 +186,7 @@
     <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionExample">
       <div class="card-body">  
         <button type="button" class="btn btn-outline-primary" onclick="isStep()">График шагов</button>
-        <div id="step_chart"></div>
+        <pre class="chroma"><div id="step_chart"></div></pre>
         <h3>Таблица значений</h3>
         <div class="table-wrap">
                 <table class="table-1">
@@ -223,7 +223,7 @@
     <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordionExample">
       <div class="card-body">
         <button type="button" class="btn btn-outline-primary" onclick="isDistance()">График дистанции</button>
-        <div id="distance_chart"></div>
+        <pre class="chroma"><div id="distance_chart"></div></pre>
         <h3>Таблица значений</h3>
         <div class="table-wrap">
                 <table class="table-1">
@@ -260,7 +260,7 @@
     <div id="collapseFor" class="collapse" aria-labelledby="headingFor" data-parent="#accordionExample">
       <div class="card-body">
         <button type="button" class="btn btn-outline-primary" onclick="isWeight()">График веса</button>
-        <div id="weight_chart"></div>
+        <pre class="chroma"><div id="weight_chart"></div></pre>
         <h3>Таблица значений</h3>
         <div class="table-wrap">
                 <table class="table-1">
