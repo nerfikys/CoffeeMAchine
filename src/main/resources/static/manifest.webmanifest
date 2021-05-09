@@ -3,7 +3,7 @@
     "short_name": "Health",
     "start_url": "index.html",
     "display_override": ["window-control-overlay", "minimal-ui"],
-    "display": "fullscreen",
+    "display": "minimal-ui",
     "orientation": "any",
     "lang": "ru",
     "scope": "./",

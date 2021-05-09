@@ -1,8 +1,10 @@
-console.log('Hello from service-worker.js');
+console.log('Подключение сервис-воркера');
 
 var CACHE_NAME = 'my-site-cache-v1';
 var urlsToCache = [
-    'index.html'
+    '/main',
+    '/login',
+
 ];
 
 self.addEventListener('install', function(event) {
