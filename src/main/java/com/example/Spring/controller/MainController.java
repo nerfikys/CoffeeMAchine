@@ -5,10 +5,7 @@ import com.example.Spring.repos.DistanceRepo;
 import com.example.Spring.repos.PulseRepo;
 import com.example.Spring.repos.StepRepo;
 import com.example.Spring.repos.WeightRepo;
-import com.example.Spring.service.DistanceXML;
-import com.example.Spring.service.PulseXML;
-import com.example.Spring.service.StepXML;
-import com.example.Spring.service.WeightXML;
+import com.example.Spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -245,100 +242,98 @@ public class MainController {
             @RequestParam Map<String, Object> model,
             @RequestParam("file") MultipartFile file
     ) throws IOException {
-        ZANAYTO= true;
-        ArrayList<Pulse> pulses = new ArrayList<>();
-        ArrayList<Step> steps = new ArrayList<>();
-        ArrayList<Distance> distances = new ArrayList<>();
-        ArrayList<Weight> weights = new ArrayList<>();
+        if(!ZANAYTO) {
+            ZANAYTO = true;
+            ArrayList<Pulse> pulses = new ArrayList<>();
+            ArrayList<Step> steps = new ArrayList<>();
+            ArrayList<Distance> distances = new ArrayList<>();
+            ArrayList<Weight> weights = new ArrayList<>();
 
-        try {
-            PulseXML pulseXML = new PulseXML();
-            pulses = pulseXML.XMLReader(file);
-            StepXML stepXML= new StepXML();
-            steps = stepXML.XMLReader(file);
-            DistanceXML distanceXML = new DistanceXML();
-            distances = distanceXML.XMLReader(file);
-            WeightXML weightXML = new WeightXML();
-            weights = weightXML.XMLReader(file);
-        } catch (ParserConfigurationException e) {
-            e.printStackTrace();
-        } catch (SAXException e) {
-            e.printStackTrace();
-        }
-        Iterable<Pulse> pulses0 = pulseRepo.findByAuthor(user);
-        for (Pulse pulse : pulses)
-        {
-            boolean flag = true;
-            for (Pulse p : pulses0)
-            {
-                if(pulse.getValue().equals(p.getValue())&&pulse.getData().equals(p.getData())&&pulse.getName().equals(p.getName()))
-                {
-                    flag = false;
-                    break;
+            try {
+                if (file.getOriginalFilename().substring(file.getOriginalFilename().length() - 3, file.getOriginalFilename().length()).equals("xml")) {
+                    PulseXML pulseXML = new PulseXML();
+                    pulses = pulseXML.XMLReader(file);
+                    StepXML stepXML = new StepXML();
+                    steps = stepXML.XMLReader(file);
+                    DistanceXML distanceXML = new DistanceXML();
+                    distances = distanceXML.XMLReader(file);
+                    WeightXML weightXML = new WeightXML();
+                    weights = weightXML.XMLReader(file);
+                } else if (file.getOriginalFilename().substring(file.getOriginalFilename().length() - 3, file.getOriginalFilename().length()).equals("csv")) {
+                    ReaderCSV readerCSV = new ReaderCSV();
+                    readerCSV.ReadSCV(file);
+                    pulses = readerCSV.getPulses();
+                    steps = readerCSV.getSteps();
+                    weights = readerCSV.getWeights();
+                    distances = readerCSV.getDistances();
+                } else {
+                    return "/";// Короче ошибка не надо работать дальше
+                }
+            } catch (ParserConfigurationException e) {
+                e.printStackTrace();
+            } catch (SAXException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            Iterable<Pulse> pulses0 = pulseRepo.findByAuthor(user);
+            for (Pulse pulse : pulses) {
+                boolean flag = true;
+                for (Pulse p : pulses0) {
+                    if (pulse.getValue().equals(p.getValue()) && pulse.getData().equals(p.getData()) && pulse.getName().equals(p.getName())) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    pulse.setAuthor(user);
+                    pulseRepo.save(pulse);
                 }
             }
-            if (flag)
-            {
-                pulse.setAuthor(user);
-                pulseRepo.save(pulse);
-            }
-        }
-        Iterable<Weight> weights0 = weightRepo.findByAuthor(user);
-        for (Weight weight : weights) {
-            boolean flag = true;
-            for (Weight w : weights0) {
-                if (weight.getValue().equals(w.getValue()) && weight.getData().equals(w.getData()) && weight.getName().equals(w.getName()))
-                {
-                    flag = false;
-                    break;
+            Iterable<Weight> weights0 = weightRepo.findByAuthor(user);
+            for (Weight weight : weights) {
+                boolean flag = true;
+                for (Weight w : weights0) {
+                    if (weight.getValue().equals(w.getValue()) && weight.getData().equals(w.getData()) && weight.getName().equals(w.getName())) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    weight.setAuthor(user);
+                    weightRepo.save(weight);
                 }
             }
-            if (flag) {
-                weight.setAuthor(user);
-                weightRepo.save(weight);
-            }
-        }
-        Iterable<Step> steps0 = stepRepo.findByAuthor(user);
-        for (Step step : steps) {
-            boolean flag = true;
-            for (Step s : steps0) {
-                if (step.getValue().equals(s.getValue()) && (step.getData().equals(s.getData()) && (step.getName().equals(s.getName()))))
-                {
-                    flag = false;
-                    break;
+            Iterable<Step> steps0 = stepRepo.findByAuthor(user);
+            for (Step step : steps) {
+                boolean flag = true;
+                for (Step s : steps0) {
+                    if (step.getValue().equals(s.getValue()) && (step.getData().equals(s.getData()) && (step.getName().equals(s.getName())))) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    step.setAuthor(user);
+                    stepRepo.save(step);
                 }
             }
-            if (flag) {
-                step.setAuthor(user);
-                stepRepo.save(step);
-            }
-        }
-        Iterable<Distance> distances0 = distanceRepo.findByAuthor(user);
-        for (Distance distance : distances) {
-            boolean flag = true;
-            for (Distance d : distances0) {
-                if (distance.getValue().equals(d.getValue()) && (distance.getData().equals(d.getData()) && (distance.getName().equals(d.getName()))))
-                {
-                    flag = false;
-                    break;
+            Iterable<Distance> distances0 = distanceRepo.findByAuthor(user);
+            for (Distance distance : distances) {
+                boolean flag = true;
+                for (Distance d : distances0) {
+                    if (distance.getValue().equals(d.getValue()) && (distance.getData().equals(d.getData()) && (distance.getName().equals(d.getName())))) {
+                        flag = false;
+                        break;
+                    }
+                }
+                if (flag) {
+                    distance.setAuthor(user);
+                    distanceRepo.save(distance);
                 }
             }
-            if (flag) {
-                distance.setAuthor(user);
-                distanceRepo.save(distance);
-            }
+            ZANAYTO = false;
         }
-        ZANAYTO = false;
-        Iterable<Pulse> pulses1 = pulseRepo.findByAuthor(user);
-        Iterable<Step> steps1 = stepRepo.findByAuthor(user);
-        Iterable<Distance> distances1 = distanceRepo.findByAuthor(user);
-        Iterable<Weight> weights1 = weightRepo.findByAuthor(user);
-        model.put("pulses", pulses1);
-        model.put("steps", steps1);
-        model.put("distances", distances1);
-        model.put("weights", weights1);
-        model.put("ZANAYTO", ZANAYTO);
-
         return "/";
     }
 }

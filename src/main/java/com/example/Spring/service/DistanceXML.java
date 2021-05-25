@@ -39,6 +39,9 @@ public class DistanceXML {
                     String name = attributes.getValue("sourceName").replaceAll("\\s+", "");
                     LocalDate CD = LocalDate.parse(attributes.getValue("creationDate").substring(0, 10), DateTimeFormatter.ofPattern("yyyy-MM-dd"));
                     Double value = Double.parseDouble(attributes.getValue("value"));
+                    value=value*1000;
+                    value = Double.valueOf(Math.round(value))/1000;
+                    System.out.println(value);
                     if (distances.isEmpty()) {
                         distances.add(new Distance(name, CD, value));
 
