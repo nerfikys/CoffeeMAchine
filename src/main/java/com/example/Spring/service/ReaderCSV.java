@@ -38,7 +38,7 @@ public class ReaderCSV
         return weights;
     }
 
-    public void ReadSCV(MultipartFile file) throws Exception
+    public void ReadCSV(MultipartFile file) throws Exception
     {
 
         File convFile = multipartToFile(file);

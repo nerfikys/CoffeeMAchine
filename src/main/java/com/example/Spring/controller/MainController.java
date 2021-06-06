@@ -1,10 +1,7 @@
 package com.example.Spring.controller;
 
 import com.example.Spring.domain.*;
-import com.example.Spring.repos.DistanceRepo;
-import com.example.Spring.repos.PulseRepo;
-import com.example.Spring.repos.StepRepo;
-import com.example.Spring.repos.WeightRepo;
+import com.example.Spring.repos.*;
 import com.example.Spring.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -248,20 +245,22 @@ public class MainController {
             ArrayList<Step> steps = new ArrayList<>();
             ArrayList<Distance> distances = new ArrayList<>();
             ArrayList<Weight> weights = new ArrayList<>();
+            ArrayList<Pulse> pulsesTemp = new ArrayList<>();
+            ArrayList<Step> stepsTemp = new ArrayList<>();
+            ArrayList<Distance> distancesTemp = new ArrayList<>();
+            ArrayList<Weight> weightsTemp = new ArrayList<>();
 
             try {
                 if (file.getOriginalFilename().substring(file.getOriginalFilename().length() - 3, file.getOriginalFilename().length()).equals("xml")) {
-                    PulseXML pulseXML = new PulseXML();
-                    pulses = pulseXML.XMLReader(file);
-                    StepXML stepXML = new StepXML();
-                    steps = stepXML.XMLReader(file);
-                    DistanceXML distanceXML = new DistanceXML();
-                    distances = distanceXML.XMLReader(file);
-                    WeightXML weightXML = new WeightXML();
-                    weights = weightXML.XMLReader(file);
+                    ReaderXML readerXML = new ReaderXML();
+                    readerXML.ReaderXML(file);
+                    pulses = readerXML.getPulses();
+                    steps = readerXML.getSteps();
+                    weights = readerXML.getWeights();
+                    distances = readerXML.getDistances();
                 } else if (file.getOriginalFilename().substring(file.getOriginalFilename().length() - 3, file.getOriginalFilename().length()).equals("csv")) {
                     ReaderCSV readerCSV = new ReaderCSV();
-                    readerCSV.ReadSCV(file);
+                    readerCSV.ReadCSV(file);
                     pulses = readerCSV.getPulses();
                     steps = readerCSV.getSteps();
                     weights = readerCSV.getWeights();
@@ -287,9 +286,11 @@ public class MainController {
                 }
                 if (flag) {
                     pulse.setAuthor(user);
-                    pulseRepo.save(pulse);
+                    pulsesTemp.add(pulse);
                 }
             }
+            pulseRepo.saveAll(pulsesTemp);
+
             Iterable<Weight> weights0 = weightRepo.findByAuthor(user);
             for (Weight weight : weights) {
                 boolean flag = true;
@@ -301,9 +302,11 @@ public class MainController {
                 }
                 if (flag) {
                     weight.setAuthor(user);
-                    weightRepo.save(weight);
+                    weightsTemp.add(weight);
                 }
             }
+            weightRepo.saveAll(weightsTemp);
+
             Iterable<Step> steps0 = stepRepo.findByAuthor(user);
             for (Step step : steps) {
                 boolean flag = true;
@@ -315,9 +318,11 @@ public class MainController {
                 }
                 if (flag) {
                     step.setAuthor(user);
-                    stepRepo.save(step);
+                    stepsTemp.add(step);
                 }
             }
+            stepRepo.saveAll(stepsTemp);
+
             Iterable<Distance> distances0 = distanceRepo.findByAuthor(user);
             for (Distance distance : distances) {
                 boolean flag = true;
@@ -329,9 +334,11 @@ public class MainController {
                 }
                 if (flag) {
                     distance.setAuthor(user);
-                    distanceRepo.save(distance);
+                    distancesTemp.add(distance);
                 }
             }
+            distanceRepo.saveAll(distancesTemp);
+
             ZANAYTO = false;
         }
         return "/";
