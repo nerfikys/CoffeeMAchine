@@ -1,6 +1,5 @@
 package com.example.Spring.service;
 
-import com.example.Spring.domain.Pulse;
 import com.example.Spring.domain.Step;
 import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;

@@ -1,6 +1,5 @@
 package com.example.Spring.service;
 
-import au.com.bytecode.opencsv.CSVReader;
 import com.example.Spring.domain.Distance;
 import com.example.Spring.domain.Pulse;
 import com.example.Spring.domain.Step;
@@ -9,18 +8,14 @@ import org.springframework.web.multipart.MultipartFile;
 import org.xml.sax.Attributes;
 import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
-
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.parsers.SAXParser;
 import javax.xml.parsers.SAXParserFactory;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class ReaderXML
 {
