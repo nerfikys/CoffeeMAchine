@@ -98,7 +98,7 @@
       </div>
     
     <div class="col-sm">
-      <a class="btn btn-primary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Отправить Файл</a>
+      <a class="btn btn-primary btn-lg btn-block" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">Загрузить Файл</a>
         <div class="collapse" id="collapseExample">
           <div class="form-group mt-3">
               <form method="post" enctype="multipart/form-data">
@@ -111,7 +111,7 @@
                 <input type="hidden" name="_csrf" value="${_csrf.token}" />
                 <div class="form-group">
                 <#if !ZANAYTO>
-                  <button type="submit" class="btn btn-primary btn-lg btn-block">Добавить</button>
+                  <button type="submit" class="btn btn-primary btn-lg btn-block">Импортировать</button>
                 </#if>
                 <#if ZANAYTO>
                 <p>
