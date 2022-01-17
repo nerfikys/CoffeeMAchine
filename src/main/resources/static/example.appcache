@@ -1,8 +1,0 @@
-CACHE MANIFEST
-# v1 - 2011-08-13
-# This is a comment.
-http://localhost:8088/
-http://localhost:8088/main
-http://localhost:8088/login
-http://localhost:8088/registration
-http://localhost:8088/user
