@@ -111,6 +111,11 @@ public class MainController { // Приём команд через интерн
     {
         try
         {
+            if(CB<0)CB=0;
+            if(C<0)C=0;
+            if(M<0)M=0;
+            if(S<0)S=0;
+            if(W<0)W=0;
             CoffeeMachine.getCap().addCoffeeB(CB);
             CoffeeMachine.getCap().addCream(C);
             CoffeeMachine.getCap().addMilk(M);
